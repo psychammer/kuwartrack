@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 class ExpenseCard extends StatelessWidget {
   final String category;
   final String transactions;
@@ -11,8 +10,12 @@ class ExpenseCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bool isDark = Theme.of(context).brightness == Brightness.dark;
+    final Color cardColor = isDark ? Colors.black : Colors.purple[100]!;
+    final Color primaryTextColor = isDark ? const Color(0xFFAE60CC) : Colors.black;
+
     return Card(
-      color: Colors.purple[100],
+      color: cardColor,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       child: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -23,7 +26,7 @@ class ExpenseCard extends StatelessWidget {
             Expanded( 
               child: Text(
                 category,
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: primaryTextColor),
                 overflow: TextOverflow.ellipsis, // Truncate if too long
                 maxLines: 1, // Keep it in a single line
                 softWrap: false, // Prevents wrapping to the next line
@@ -32,11 +35,11 @@ class ExpenseCard extends StatelessWidget {
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: [Text('Transactions: $transactions'),
-                          Text('Total Spent: ₱${double.parse(totalSpent).toStringAsFixed(2)}')]),
+                children: [Text('Transactions: $transactions', style: TextStyle(color: primaryTextColor)),
+                          Text('Total Spent: ₱${double.parse(totalSpent).toStringAsFixed(2)}', style: TextStyle(color: primaryTextColor))]),
             ),
             Expanded(
-              child: Padding(padding: EdgeInsets.only(left: 20),child: Text('${double.parse(percentage).toStringAsFixed(2)}%', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold))),
+              child: Padding(padding: EdgeInsets.only(left: 20),child: Text('${double.parse(percentage).toStringAsFixed(2)}%', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: primaryTextColor))),
             )
         ]),
       ),

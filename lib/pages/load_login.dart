@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class LoadLogin extends StatefulWidget {
@@ -12,7 +10,6 @@ class LoadLogin extends StatefulWidget {
 
 class _LoadLoginState extends State<LoadLogin> {
   Map data = {};
-
   String time = 'loading';
 
   Future<bool> login(String user, String password) async {
@@ -43,14 +40,12 @@ class _LoadLoginState extends State<LoadLogin> {
     else {// user credentials is wrong
       Navigator.pop(context, false);
       return false;
-      throw Exception("Failed to login: ${response.reasonPhrase}");
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
-    data = data.isNotEmpty? data : ModalRoute.of(context)?.settings?.arguments as Map;
+    data = data.isNotEmpty ? data : ModalRoute.of(context)?.settings?.arguments as Map;
     login(data['email'], data['password']);
     return Scaffold(
         backgroundColor: Color(0xFF53197B),

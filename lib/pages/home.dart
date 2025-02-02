@@ -7,6 +7,7 @@ import 'package:kuwartrack/expense_card.dart';
 import 'package:kuwartrack/expense_class.dart';
 import 'package:kuwartrack/pages/transaction.dart';
 import 'package:kuwartrack/pages/edit.dart';
+import 'package:kuwartrack/pages/settings.dart';
 
 
 class Home extends StatefulWidget {
@@ -19,7 +20,7 @@ class _HomeState extends State<Home> {
   late Expenses expenses;
   late List<Expense> expense_list;
   Map<String, double> category_total_expenses = {};
-  bool isLoading = true; // To manage loading state
+  bool isLoading = true;
   late double overallTotal;
   Map<String, double> pie_percentages = {};
   int _selectedIndexDate = 0;
@@ -100,19 +101,37 @@ class _HomeState extends State<Home> {
 
   // Navigation onTapped
   void _onNavigationTapped(int index) {
+    if (!mounted) return;
+    
     setState(() {
-      _selectedNavigationIndex = index; // Update the selected index
-      // Navigate or perform actions based on the index:
-      switch (index) {
-        case 0:
-          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Transaction(expenses: expenses, user_id: data['user_id'],)));
-          break;
-        case 1:
-          break;
-        case 2:
-          break;
-      }
+      _selectedNavigationIndex = index;
     });
+
+    switch (index) {
+      case 0: // Transaction page
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => Transaction(
+              expenses: expenses,
+              user_id: data['user_id'] ?? 'admin'
+            )
+          )
+        );
+        break;
+      
+      case 1: // Home page - stay here
+        break;
+      
+      case 2: // Settings page
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => Settings()
+          )
+        );
+        break;
+    }
   }
 
   Future<void> fetchBudgetData() async {
@@ -313,16 +332,16 @@ class _HomeState extends State<Home> {
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 1,
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(icon: Icon(Icons.attach_money, size: 50), label: ''),
+          BottomNavigationBarItem(icon: Icon(Icons.home, size: 50), label: ''),
+          BottomNavigationBarItem(icon: Icon(Icons.settings, size: 50), label: ''),
+        ],
+        currentIndex: _selectedNavigationIndex,
         onTap: _onNavigationTapped,
         backgroundColor: Color(0xFFF68F6D), // Set the background color
         selectedItemColor: Colors.white, // Color for the selected item
         unselectedItemColor: Colors.black, // Color for unselected items
-        items: [
-          BottomNavigationBarItem(icon: Icon(Icons.attach_money, size: 50,), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.home, size: 50), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.settings, size: 50), label: ''),
-        ],
       ),
     );
   }
@@ -465,5 +484,3 @@ Map<String, double> sortedDesc(Map<String, double> inputExpenses, bool sortByTyp
   // Convert back to a Map and return
   return Map.fromEntries(sortedEntries);
 }
-
-

@@ -451,8 +451,22 @@ class _TransactionState extends State<Transaction> {
 
   @override
   Widget build(BuildContext context) {
+    final bool isDark = Theme.of(context).brightness == Brightness.dark;
+    // Title color is violet (0xFFBB6CEB) in dark mode, otherwise black.
+    final Color titleColor = isDark ? const Color(0xFFBB6CEB) : Colors.black;
+    // All other labels will remain black regardless of dark mode.
+    final Color normalTextColor = Colors.black;
+
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      appBar: AppBar(
+        title: Text(
+          'Transactions',
+          style: TextStyle(color: titleColor),
+        ),
+        iconTheme: IconThemeData(color: titleColor),
+        backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Center(
@@ -462,11 +476,11 @@ class _TransactionState extends State<Transaction> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    budgetBox("Day", overallTotalThisDay),
+                    budgetBox("Day", overallTotalThisDay, textColor: normalTextColor),
                     SizedBox(width: 10),
-                    budgetBox("Week", overallTotalThisWeek),
+                    budgetBox("Week", overallTotalThisWeek, textColor: normalTextColor),
                     SizedBox(width: 10),
-                    budgetBox("Month", overallTotalThisMonth),
+                    budgetBox("Month", overallTotalThisMonth, textColor: normalTextColor),
                   ],
                 ),
                 SizedBox(height: 20),
@@ -500,6 +514,7 @@ class _TransactionState extends State<Transaction> {
                         'assets/images/calendar.png', // Change to your actual image path
                         width: 50,
                         height: 50,
+                        color: normalTextColor,
                       ),
                       onPressed: () => _pickDate(context),
                     )
@@ -538,7 +553,7 @@ class _TransactionState extends State<Transaction> {
                       children: [
                         Text(
                           "Today's Budget",
-                          style: TextStyle(fontSize: 18, color: Colors.black),
+                          style: TextStyle(fontSize: 18, color: normalTextColor),
                           textAlign: TextAlign.center, // Ensures text is centered
                         ),
                         SizedBox(height: 5),
@@ -589,7 +604,7 @@ class _TransactionState extends State<Transaction> {
                     margin: EdgeInsets.only(bottom:0, top: 50, left: 10, right: 10), // Keep your bottom margin
                     padding: EdgeInsets.all(20),
                     decoration: BoxDecoration(
-                      color: Color(0xFFAE60CC),
+                      color: isDark ? Colors.black : Color(0xFFAE60CC),
                       borderRadius: BorderRadius.circular(20), // Fully rounded corners
                       boxShadow: [
                         BoxShadow(
@@ -630,7 +645,7 @@ class _TransactionState extends State<Transaction> {
                                         borderRadius: BorderRadius.circular(100), // Match the Card's borderRadius
                                       ),
                                       padding: EdgeInsets.symmetric(vertical: 10, horizontal: 30),
-                                      child: Column(children: [Text('Add', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)), Text('Category', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold))],),
+                                      child: Column(children: [Text('Add', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: normalTextColor)), Text('Category', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: normalTextColor))],),
                                     ),
                                   ),
                                 ),
@@ -646,16 +661,16 @@ class _TransactionState extends State<Transaction> {
                                       children: [
                                       Row(
                                         children: [
-                                          Text('Date: ', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                                          Text('Date: ', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: normalTextColor)),
                                           Text('${_selectedDate != null
                                               ? DateFormat('MMMM dd, yyyy').format(_selectedDate!)  // Format the selected date
-                                              : DateFormat('MMMM dd, yyyy').format(DateTime.now())}')
+                                              : DateFormat('MMMM dd, yyyy').format(DateTime.now())}', style: TextStyle(color: normalTextColor))
                                         ],
                                       ),
                                       Row(
                                         children: [
-                                          Text('Overall Spent: ', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                                          Text('₱${overallTotal}')
+                                          Text('Overall Spent: ', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: normalTextColor)),
+                                          Text('₱${overallTotal}', style: TextStyle(color: normalTextColor))
                                         ],
                                       )
                                     ],),
@@ -714,7 +729,7 @@ class _TransactionState extends State<Transaction> {
     );
   }
 
-  Widget budgetBox(String label, double amount) {
+  Widget budgetBox(String label, double amount, {Color? textColor}) {
     return Container(
       padding: EdgeInsets.all(10),
       width: 100,
@@ -724,15 +739,15 @@ class _TransactionState extends State<Transaction> {
       ),
       child: Column(
         children: [
-          Text(label, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black)),
+          Text(label, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: textColor ?? Colors.black)),
           SizedBox(height: 5),
-          Text("₱${amount.toStringAsFixed(0)}", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+          Text("₱${amount.toStringAsFixed(0)}", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: textColor ?? Colors.black)),
         ],
       ),
     );
   }
 
-  Widget savingsBox(String label, double? amount, {IconData? icon}) {
+  Widget savingsBox(String label, double? amount, {IconData? icon, Color? textColor}) {
     return Container(
       padding: EdgeInsets.all(10),
       width: 140,
@@ -746,10 +761,10 @@ class _TransactionState extends State<Transaction> {
       ),
       child: Column(
         children: [
-          Text(label, style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.black), textAlign: TextAlign.center,),
+          Text(label, style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: textColor ?? Colors.black), textAlign: TextAlign.center,),
           SizedBox(height: 5),
           if (icon != amount)
-            Text("₱${amount?.toStringAsFixed(0) ?? ''}", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold))
+            Text("₱${amount?.toStringAsFixed(0) ?? ''}", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: textColor ?? Colors.black))
         ],
       ),
     );
