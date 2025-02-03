@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/expenses")
 public class addController {
-    private static final String BASE_DIRECTORY = "C:\\Users\\RJ\\Documents\\project\\kuwartrack\\demo\\src\\main\\data\\";
+    private static final String BASE_DIRECTORY = "C:\\flutter\\kuwartrack\\demo\\src\\main\\data\\";
 
     @PostMapping("/add")
     public ResponseEntity<String> addExpense(@RequestBody ExpenseRequest request) {

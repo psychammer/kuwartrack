@@ -22,10 +22,7 @@ class ThemeSettings extends StatelessWidget {
               subtitle: const Text('Follow device settings'),
               onTap: () {
                 MyApp.of(context).changeTheme(ThemeMode.system);
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (context) => Settings()),
-                );
+                Navigator.pop(context);
               },
             ),
             const Divider(),
@@ -34,10 +31,7 @@ class ThemeSettings extends StatelessWidget {
               subtitle: const Text('Force light mode'),
               onTap: () {
                 MyApp.of(context).changeTheme(ThemeMode.light);
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (context) => Settings()),
-                );
+                Navigator.pop(context);
               },
             ),
             const Divider(),
@@ -46,10 +40,7 @@ class ThemeSettings extends StatelessWidget {
               subtitle: const Text('Force dark mode'),
               onTap: () {
                 MyApp.of(context).changeTheme(ThemeMode.dark);
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (context) => Settings()),
-                );
+                Navigator.pop(context);
               },
             ),
           ],

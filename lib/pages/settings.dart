@@ -88,12 +88,7 @@ class _SettingsState extends State<Settings> {
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: textColor),
           onPressed: () {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                builder: (context) => Home(),
-              ),
-            );
+            Navigator.pop(context);
           },
         ),
         title: Text(
@@ -111,8 +106,6 @@ class _SettingsState extends State<Settings> {
                 padding: const EdgeInsets.all(10),
                 children: [
                   _buildSettingItem(Icons.palette, 'Theme', currentTheme),
-                  _buildSettingItem(Icons.security, 'Security', 'Biometric'),
-                  _buildSettingItem(Icons.notifications, 'Notification', 'On'),
                   _buildSettingItem(Icons.info, 'About', ''),
                   _buildSettingItem(Icons.help, 'Help', ''),
                 ],

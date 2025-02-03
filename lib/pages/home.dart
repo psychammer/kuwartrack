@@ -135,7 +135,7 @@ class _HomeState extends State<Home> {
   }
 
   Future<void> fetchBudgetData() async {
-    final url = Uri.parse('https://e585-130-105-115-165.ngrok-free.app/expenses/get_budget?userId=${data['user_id']}');
+    final url = Uri.parse('https://206e-110-235-154-222.ngrok-free.app/expenses/get_budget?userId=${data['user_id']}');
 
     final response = await http.get(url);
 
@@ -337,7 +337,7 @@ class _HomeState extends State<Home> {
           BottomNavigationBarItem(icon: Icon(Icons.home, size: 50), label: ''),
           BottomNavigationBarItem(icon: Icon(Icons.settings, size: 50), label: ''),
         ],
-        currentIndex: _selectedNavigationIndex,
+        currentIndex: 1,
         onTap: _onNavigationTapped,
         backgroundColor: Color(0xFFF68F6D), // Set the background color
         selectedItemColor: Colors.white, // Color for the selected item
@@ -370,7 +370,7 @@ class _HomeState extends State<Home> {
 
 // Get data request
 Future<List<Expense>> get_data(String user_id) async {
-  final url = Uri.parse("https://e585-130-105-115-165.ngrok-free.app/api/auth/post_data");
+  final url = Uri.parse("https://206e-110-235-154-222.ngrok-free.app/api/auth/post_data");
   final response = await http.post(
     url,
     headers: {"Content-Type": "application/json"},

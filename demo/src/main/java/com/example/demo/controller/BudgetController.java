@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/expenses")
 public class BudgetController {
-    private static final String BASE_DIRECTORY = "C:\\Users\\RJ\\Documents\\project\\kuwartrack\\demo\\src\\main\\data\\";
+    private static final String BASE_DIRECTORY = "C:\\flutter\\kuwartrack\\demo\\src\\main\\data\\";
 
     @GetMapping("/get_budget")
     public ResponseEntity<Map<String, Double>> getBudget(@RequestParam String userId) {

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 class LoadLogin extends StatefulWidget {
   const LoadLogin({super.key});
@@ -13,7 +15,7 @@ class _LoadLoginState extends State<LoadLogin> {
   String time = 'loading';
 
   Future<bool> login(String user, String password) async {
-    final url = Uri.parse("https://e585-130-105-115-165.ngrok-free.app/api/auth/login");
+    final url = Uri.parse("https://206e-110-235-154-222.ngrok-free.app/api/auth/login");
 
     final response = await http.post(
       url,

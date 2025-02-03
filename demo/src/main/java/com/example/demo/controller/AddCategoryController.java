@@ -9,7 +9,7 @@ import java.util.*;
 @RequestMapping("/expenses")
 public class AddCategoryController {
 
-    private static final String BASE_DIRECTORY = "C:\\Users\\RJ\\Documents\\project\\kuwartrack\\demo\\src\\main\\data\\";
+    private static final String BASE_DIRECTORY = "C:\\flutter\\kuwartrack\\demo\\src\\main\\data\\";
 
     @PostMapping("/add-category")
     public ResponseEntity<String> addExpense(@RequestBody ExpenseRequest request) {

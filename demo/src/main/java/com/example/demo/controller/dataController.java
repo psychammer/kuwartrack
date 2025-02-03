@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api/auth")
 public class dataController {
-    private static final String BASE_DIRECTORY = "C:\\Users\\RJ\\Documents\\project\\kuwartrack\\demo\\src\\main\\data\\"; // New writable location
+    private static final String BASE_DIRECTORY = "C:\\flutter\\kuwartrack\\demo\\src\\main\\data\\"; // New writable location
 
     // GET endpoint to retrieve expenses (test via browser)
     @GetMapping("/get_data")

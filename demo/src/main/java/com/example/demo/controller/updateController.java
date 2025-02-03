@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/expenses")
 public class updateController {
-    private static final String BASE_DIRECTORY = "C:\\Users\\RJ\\Documents\\project\\kuwartrack\\demo\\src\\main\\data\\";
+    private static final String BASE_DIRECTORY = "C:\\flutter\\kuwartrack\\demo\\src\\main\\data\\";
 
     @PutMapping("/update")
     public ResponseEntity<String> updateExpense(@RequestBody Expense updatedExpense) {
