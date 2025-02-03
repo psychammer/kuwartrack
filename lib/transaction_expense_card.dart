@@ -69,44 +69,6 @@ class TransactionExpenseCard extends StatelessWidget {
                 // Buttons (Edit/View)
                 Column(
                   children: [
-                    // Edit button
-                    SizedBox(
-                      width: 90,
-                      height: 50,
-                      child: ElevatedButton(
-                        onPressed: () { /* Your edit action */ },
-                        style: ElevatedButton.styleFrom(
-                          padding: EdgeInsets.zero,
-                          backgroundColor: Colors.transparent,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                        ),
-                        child: InkWell(
-                          child: Ink(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              gradient: const LinearGradient(
-                                begin: Alignment.topCenter,
-                                end: Alignment.bottomCenter,
-                                colors: [Color(0xFFFBBEDE), Color(0xFFFF82C4)],
-                              ),
-                            ),
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(vertical: 10),
-                              child: const Center(
-                                child: Text(
-                                  'View',
-                                  style: TextStyle(color: Colors.black),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-
                     // View button
                     SizedBox(
                       width: 90,
